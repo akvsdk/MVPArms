@@ -16,11 +16,11 @@
 package com.jess.arms.widget.autolayout;
 
 import android.content.Context;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.zhy.autolayout.AutoLayoutInfo;
 import com.zhy.autolayout.utils.AutoLayoutHelper;
 
@@ -52,11 +52,11 @@ public class AutoCollapsingToolbarLayout extends CollapsingToolbarLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (!isInEditMode())
+        if (!isInEditMode()) {
             mHelper.adjustChildren();
+        }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
-
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -68,7 +68,6 @@ public class AutoCollapsingToolbarLayout extends CollapsingToolbarLayout {
         return new LayoutParams(getContext(), attrs);
     }
 
-
     public static class LayoutParams extends CollapsingToolbarLayout.LayoutParams
             implements AutoLayoutHelper.AutoLayoutParams {
         private AutoLayoutInfo mAutoLayoutInfo;
@@ -78,16 +77,9 @@ public class AutoCollapsingToolbarLayout extends CollapsingToolbarLayout {
             mAutoLayoutInfo = AutoLayoutHelper.getAutoLayoutInfo(c, attrs);
         }
 
-        @Override
-        public AutoLayoutInfo getAutoLayoutInfo() {
-            return mAutoLayoutInfo;
-        }
-
-
         public LayoutParams(int width, int height) {
             super(width, height);
         }
-
 
         public LayoutParams(ViewGroup.LayoutParams source) {
             super(source);
@@ -97,6 +89,9 @@ public class AutoCollapsingToolbarLayout extends CollapsingToolbarLayout {
             super(source);
         }
 
+        @Override
+        public AutoLayoutInfo getAutoLayoutInfo() {
+            return mAutoLayoutInfo;
+        }
     }
-
 }

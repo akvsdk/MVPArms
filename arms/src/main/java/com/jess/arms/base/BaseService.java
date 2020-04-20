@@ -18,7 +18,8 @@ package com.jess.arms.base;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.jess.arms.integration.EventBusManager;
 
@@ -47,16 +48,18 @@ public abstract class BaseService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (useEventBus())
+        if (useEventBus()) {
             EventBusManager.getInstance().register(this);
+        }
         init();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (useEventBus())
+        if (useEventBus()) {
             EventBusManager.getInstance().unregister(this);
+        }
         unDispose();//解除订阅
         this.mCompositeDisposable = null;
     }
@@ -68,7 +71,7 @@ public abstract class BaseService extends Service {
      * 确保依赖后, 将此方法返回 true, Arms 会自动检测您依赖的 EventBus, 并自动注册
      * 这种做法可以让使用者有自行选择三方库的权利, 并且还可以减轻 Arms 的体积
      *
-     * @return 返回 {@code true} (默认为使用 {@code true}), Arms 会自动注册 EventBus
+     * @return 返回 {@code true} (默认为 {@code true}), Arms 会自动注册 EventBus
      */
     public boolean useEventBus() {
         return true;
@@ -78,12 +81,12 @@ public abstract class BaseService extends Service {
         if (mCompositeDisposable == null) {
             mCompositeDisposable = new CompositeDisposable();
         }
-        mCompositeDisposable.add(disposable);//将所有subscription放入,集中处理
+        mCompositeDisposable.add(disposable);//将所有 Disposable 放入容器集中处理
     }
 
     protected void unDispose() {
         if (mCompositeDisposable != null) {
-            mCompositeDisposable.clear();//保证activity结束时取消所有正在执行的订阅
+            mCompositeDisposable.clear();//保证 Activity 结束时取消所有正在执行的订阅
         }
     }
 

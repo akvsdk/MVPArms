@@ -17,8 +17,9 @@ package com.jess.arms.base.delegate;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.jess.arms.integration.EventBusManager;
 import com.jess.arms.utils.ArmsUtils;
@@ -41,11 +42,10 @@ public class ActivityDelegateImpl implements ActivityDelegate {
         this.iActivity = (IActivity) activity;
     }
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         //如果要使用 EventBus 请将此方法返回 true
-        if (iActivity.useEventBus()){
+        if (iActivity.useEventBus()) {
             //注册到事件主线
             EventBusManager.getInstance().register(mActivity);
         }
@@ -82,8 +82,9 @@ public class ActivityDelegateImpl implements ActivityDelegate {
     @Override
     public void onDestroy() {
         //如果要使用 EventBus 请将此方法返回 true
-        if (iActivity != null && iActivity.useEventBus())
+        if (iActivity != null && iActivity.useEventBus()) {
             EventBusManager.getInstance().unregister(mActivity);
+        }
         this.iActivity = null;
         this.mActivity = null;
     }

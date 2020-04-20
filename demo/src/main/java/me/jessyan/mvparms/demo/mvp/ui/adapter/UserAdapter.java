@@ -17,6 +17,8 @@ package me.jessyan.mvparms.demo.mvp.ui.adapter;
 
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import com.jess.arms.base.BaseHolder;
 import com.jess.arms.base.DefaultAdapter;
 
@@ -36,12 +38,14 @@ import me.jessyan.mvparms.demo.mvp.ui.holder.UserItemHolder;
  * ================================================
  */
 public class UserAdapter extends DefaultAdapter<User> {
+
     public UserAdapter(List<User> infos) {
         super(infos);
     }
 
+    @NonNull
     @Override
-    public BaseHolder<User> getHolder(View v, int viewType) {
+    public BaseHolder<User> getHolder(@NonNull View v, int viewType) {
         return new UserItemHolder(v);
     }
 

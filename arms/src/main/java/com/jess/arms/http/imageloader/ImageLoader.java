@@ -16,7 +16,8 @@
 package com.jess.arms.http.imageloader;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.jess.arms.utils.Preconditions;
 
@@ -45,7 +46,6 @@ public final class ImageLoader {
     public ImageLoader() {
     }
 
-
     /**
      * 加载图片
      *
@@ -55,6 +55,7 @@ public final class ImageLoader {
      */
     public <T extends ImageConfig> void loadImage(Context context, T config) {
         Preconditions.checkNotNull(mStrategy, "Please implement BaseImageLoaderStrategy and call GlobalConfigModule.Builder#imageLoaderStrategy(BaseImageLoaderStrategy) in the applyOptions method of ConfigModule");
+        //noinspection unchecked
         this.mStrategy.loadImage(context, config);
     }
 
@@ -67,7 +68,13 @@ public final class ImageLoader {
      */
     public <T extends ImageConfig> void clear(Context context, T config) {
         Preconditions.checkNotNull(mStrategy, "Please implement BaseImageLoaderStrategy and call GlobalConfigModule.Builder#imageLoaderStrategy(BaseImageLoaderStrategy) in the applyOptions method of ConfigModule");
+        //noinspection unchecked
         this.mStrategy.clear(context, config);
+    }
+
+    @Nullable
+    public BaseImageLoaderStrategy getLoadImgStrategy() {
+        return mStrategy;
     }
 
     /**
@@ -78,10 +85,5 @@ public final class ImageLoader {
     public void setLoadImgStrategy(BaseImageLoaderStrategy strategy) {
         Preconditions.checkNotNull(strategy, "strategy == null");
         this.mStrategy = strategy;
-    }
-
-    @Nullable
-    public BaseImageLoaderStrategy getLoadImgStrategy() {
-        return mStrategy;
     }
 }

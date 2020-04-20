@@ -19,8 +19,9 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
-import android.media.ExifInterface;
 import android.widget.TextView;
+
+import androidx.exifinterface.media.ExifInterface;
 
 import java.io.IOException;
 
@@ -146,7 +147,6 @@ public class DrawableProvider {
         return returnBm;
     }
 
-
     /**
      * 将图片按照某个角度进行旋转
      *
@@ -175,7 +175,6 @@ public class DrawableProvider {
         return returnBm;
     }
 
-
     /**
      * 读取图片的旋转的角度
      *
@@ -200,11 +199,12 @@ public class DrawableProvider {
                 case ExifInterface.ORIENTATION_ROTATE_270:
                     degree = 270;
                     break;
+                default:
+                    break;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return degree;
     }
-
 }
